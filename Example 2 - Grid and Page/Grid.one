@@ -1,0 +1,69 @@
+﻿Fields(en-gb, Analysis, Label) {
+  
+  MCSAMatrixTest "How Would You Rate Your Experience at Our Hotel?" loop     
+{         
+    _a_Checkin "Check-in",
+    _b_Room "Room",         
+    _c_Amenities "Amenities"     
+} fields - 
+(       Rating "Rating" 
+        categorical [1..1]
+        {   
+            c1 "POOR",
+            c2 "OK",             
+            c3 "Wonderful"         
+         };  
+) expand grid;
+
+
+page1 "Do you have high blood pressure diagnosed by a doctor?" categorical [1]
+{
+    Yes "Yes",
+    No "No"
+};
+
+page2 "Have you ever had a heart attack or angina diagnosed by a doctor?" categorical [1]
+{
+    Yes "Yes",
+    No "No"
+};
+
+PageTest "Page Test" page
+(
+        page1,
+        page2
+);
+
+
+groupTest "What is your ethnic group?" categorical[1]
+{
+White "White"{
+_a01 "English/Welsh/Scottish/Northern Irish/British",
+_a02 "Irish",
+_a03 "Gypsy or Irish Traveller",
+_a04 "Any other white background" other 
+},
+Mixed "Mixed/Multiple Ethnic Group"{
+_a05 "White and Black Carribean",
+_a06 "White and Black African",
+_a07 "White and Asian",
+_a08 "Any other mixed / multiple ethnic background" other
+},
+Asian "Asian / Asian British"{
+_a09 "Indian",
+_a10 "Pakistani",
+_a11 "Bangladeshi",
+_a12 "Chinese",
+_a13 "Any other Asian background" other 
+}
+};
+}
+Main() {
+    Interview.LayoutTemplate = "Grid.htm"
+    MCSAMatrixTest.ask()
+    Interview.LayoutTemplate = "TwoQuestions.htm"
+    page2.mustanswer = false;
+     PageTest.ask()
+    Interview.LayoutTemplate = "Grid.htm"
+    groupTest.ask()   
+}

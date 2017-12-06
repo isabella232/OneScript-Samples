@@ -1,0 +1,16 @@
+<Project>
+  <Summary Name="Browser Properties" Version="1.0.1026">
+    <UseExternalBrowser>False</UseExternalBrowser>
+    <DetailedDebug>False</DetailedDebug>
+    <BreakPoints>
+    </BreakPoints>
+    <UserFields>
+    </UserFields>
+  </Summary>
+  <File Type="Project" Name="Browser Properties">
+    <File Type="Script" Name="Browser Properties.one">
+    </File>
+    <File Type="Template" Name="Browser Properties.htm">
+    </File>
+  </File>
+</Project>

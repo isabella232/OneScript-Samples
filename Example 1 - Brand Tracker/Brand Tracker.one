@@ -1,0 +1,67 @@
+﻿MetaData(en-GB, Analysis, Label)
+Q1 "Q1/7. What advertising have you just seen or heard for BRAND X and where did you see or hear it? Please explain as fully as you can." text;
+
+Q2 "Q2/7. And just to check, which of these best describes where you saw / heard the ad?" categorical[1]
+{
+	TV "TV",
+	Cinema "Cinema",
+	Poster "Poster",
+	Digital_panel "Digital panel (e.g. on underground)",
+	Newspaper "Newspaper",
+	Magazine "Magazine",
+	Radio "Radio",
+	Internet "Internet",
+	_Other "Other"
+};
+
+Q3 "Q3/7. What was the advertising about? What was its main message? Please explain fully." text;
+
+Q4 "Q4/7. Please move the slider to rate how clearly you understand what the advertising was trying to tell you?" 
+    style(
+                Control(
+                    slider(labeltype="label", low="1 (Not at all)", high="10 (Completely)")
+                    )
+         )
+double [1..10 step 0.1];
+
+Q5 "Q5/7. Please move the slider to rate the degree to which what you have seen/heard makes your opinion of BRAND X more or less positive." 
+    style(
+                Control(
+                    slider(labeltype="label", low="1 (less)", high="10 (More)")
+                    )
+         )
+double [1..10 step 0.1];
+
+Q6 "Q6/7. In which of the following places have you seen or heard any other advertising for BRAND X in the last few weeks? Select all that apply." categorical
+{
+	TV "TV",
+	Cinema "Cinema",
+	Outdoor "Outdoor",
+	Press "Press",
+	Radio "Radio",
+	Online "Online",
+	_Other "Other",
+	Havent "Haven't seen anything"
+};
+
+Q7 "Q7/7. Apart from advertising, have you seen or heard the recent BRAND X campaign mentioned anywhere else (e.g. in an article, people talking about IT on the radio)? And if so where?" text;
+
+Q9 "Thank you for completing the brand tracker survey. We can now invite you to more relevant and personal surveys. Your details remain confidential and will never be shared with 3rd parties." info;
+
+
+End MetaData
+Routing (Web, Web)
+IOM.LayoutTemplate="Brand Tracker.htm"
+
+Q1.Ask()
+Q2.Ask()
+Q3.Ask()
+Q4.Ask()
+Q5.Ask()
+Q6.Ask()
+IOM.Navigations[NavigationTypes.nvNext].Label = "Next"
+Q7.Ask()
+IOM.Navigations[NavigationTypes.nvNext].Label = "Finish"
+Q9.Ask()
+
+End Routing

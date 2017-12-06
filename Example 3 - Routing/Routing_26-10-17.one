@@ -1,0 +1,180 @@
+﻿Fields(en-gb, Analysis, Label) {
+  Q1 "How did your overall visit experience compare to what you expected?" categorical[1]
+{
+ Better_than_expected "Better than expected",
+ About_the_same_as_expected "About the same as expected",
+ Worse_than_expected "Worse than expected"
+ 
+};
+
+Q2 "Please tell us why your visit was better than you expected." text;
+Q3 "Please tell us how we could have made your visit even better" text;
+Q4 "Please tell us why your visit was worse than you expected." text;
+
+Q5 "You indicated you were dissatisfied with the food you received. Which menu item(s) were you most unhappy with? Please select all that apply." categorical
+{
+    Main_meal "Main meal",
+    Side_order "Side order",
+    Drink "Drink",
+    Condiments "Condiments (sauces etc)",
+    Desert "Desert",
+    _Other "Other"
+};
+
+Q6 "{#Q5}" info;
+
+Q7 "Please tell us more about the food you received." text;
+
+_MCSAMatrixTest "How Would You Rate Your Experience at Our Hotel?" loop     
+{         
+    _a_Checkin "Check-in",
+    _b_Roomq "Room",         
+    _c_Amenities "Amenities"     
+} fields - 
+(       Rating "Rating" 
+        categorical [1..1]
+        {   
+            c1 "POOR",
+            c2 "OK",             
+            c3 "Wonderful"         
+         };  
+) expand grid;
+
+
+_page1 "Do you have high blood pressure diagnosed by a doctor?" categorical [1]
+{
+    Yes "Yes",
+    No "No"
+};
+
+_page2 "Have you ever had a heart attack or angina diagnosed by a doctor?" categorical [1]
+{
+    Yes "Yes",
+    No "No"
+};
+
+_PageTest "Page Test" page
+(
+        _page1,
+        _page2
+);
+
+_groupTest "What is your ethnic group?" categorical[1]
+{
+White "White"{
+_a01 "English/Welsh/Scottish/Northern Irish/British",
+_a02 "Irish",
+_a03 "Gypsy or Irish Traveller",
+_a04 "Any other white background" other 
+},
+Mixed "Mixed/Multiple Ethnic Group"{
+_a05 "White and Black Carribean",
+_a06 "White and Black African",
+_a07 "White and Asian",
+_a08 "Any other mixed / multiple ethnic background" other
+},
+Asian "Asian / Asian British"{
+_a09 "Indian",
+_a10 "Pakistani",
+_a11 "Bangladeshi",
+_a12 "Chinese",
+_a13 "Any other Asian background" other 
+}
+};
+
+
+
+_adv_Route_Pipe1 "Which of the following hotels have you ever stayed at for business?" categorical[1..]
+{
+_adv_Route_Pipe101 "Holiday Inn",
+_adv_Route_Pipe102 "Best Western",
+_adv_Route_Pipe103 "Radisson",
+_adv_Route_Pipe104 "Premier Inns",
+_adv_Route_Pipe105 "Marriott",
+_adv_Route_Pipe106 "Travelodge"
+};
+
+_adv_Route_Pipe2 "Which of the following hotels have you ever stayed at for business?" categorical[1..]
+{
+_adv_Route_Pipe201 "Holiday Inn",
+_adv_Route_Pipe202 "Best Western",
+_adv_Route_Pipe203 "Radisson",
+_adv_Route_Pipe204 "Premier Inns",
+_adv_Route_Pipe205 "Marriott",
+_adv_Route_Pipe206 "Travelodge"
+};
+
+_adv_Route_Eval1 "What was the main reason for your visit to the mall today?" categorical[1..]
+{
+a "Visit a specific retailer",
+b "Get something to eat and drink",
+c "Entertainment, Cinema, etc",
+d "Fashion shopping",
+e "Curious to see new mall",
+f "Other"
+};
+
+_adv_Route_Eval2 "%{{#_adv_Route_Eval1.name}}" string;
+
+_adv_Route_Eval3 "Please reply with the name of the retailer." text;
+
+_adv_Route_Eval4 "What was the ""Other"" reason for visiting the mall today?" text;
+
+_adv_Route_Eval5 "How easy was it to find your way around the center today?" style(Control(slider(labeltype="label", low="Difficult ", high="Very Easy "))) integer [0..10 step 1];
+
+
+_adv_Route1 "How will you rate our service?" categorical[1]
+{
+a "Very bad",
+b "Bad",
+c "Ok",
+d "Good",
+e "Very Good"
+};
+
+_adv_Route2 "How was the food?" categorical[1]
+{
+a "Very bad",
+b "Bad",
+c "Ok",
+d "Good",
+e "Very Good"
+};
+
+_adv_Route3 "%{{#_adv_Route1.name},{#_adv_Route2.name}}" string;
+
+_adv_Route4 "What good we did?" text;
+
+_adv_Route5 "How can we improve?" text;
+
+_adv_Route6 "What is the chances of you coming back?" style(Control(slider(labeltype="label", low="Low ", high="High "))) integer [0..100 step 1];
+
+_complete "Thank you for completing the survey!" info;
+
+}
+Main() {
+    Interview.LayoutTemplate = "Routing_26-10-17.htm"
+       
+    _adv_Route_Eval1.ask()
+    _adv_Route_Eval2.Response = _adv_Route_Eval2.Label.Text
+    if _adv_Route_Eval2.Response.Value.ContainsAny({a}) then
+    _adv_Route_Eval3.ask()
+    elseif _adv_Route_Eval2.Response.Value.ContainsAny({f}) then
+    _adv_Route_Eval4.ask()
+    else
+    _adv_Route_Eval5.ask()
+    end if 
+    
+    _adv_Route1.ask()
+    _adv_Route2.ask()
+    _adv_Route3.Response =  _adv_Route3.Label.Text 
+    if _adv_Route3.Response.Value.ContainsAny({a,b}) then
+    _adv_Route5.ask()
+    else
+    _adv_Route4.ask()
+    end if 
+    _adv_Route6.ask()
+    
+    _complete.ask()
+        
+}

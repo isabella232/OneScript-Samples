@@ -1,0 +1,77 @@
+
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <link rel="stylesheet" href="themes/reset.css" />
+    <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+    <link rel="stylesheet" href="jquerymobile/jquery.mobile-1.4.2.min.css" />
+    <link rel="stylesheet" href="themes/OPg-new.css" />
+    <link rel="stylesheet" href="jquerymobile/jquery.mobile.datepicker.css" />
+    <link rel="stylesheet" href="themes/layout.css" />
+    <link rel="stylesheet" href="themes/opgWidgets.css" />
+    <script src="jquery/jquery-1.10.2.js"></script>
+    <script src="jqueryui/jquery-ui.min.js"></script>
+    <script src="jqueryui/jquery.maskedinput.min.js"></script>
+    <script src="jquery/xDate.js"></script>
+    <script src="jquerymobile/jquery.mobile-1.4.2.min.js"></script>
+    <script src="jquerymobile/jquery.ui.touch-punch.min.js"></script>
+    <script src="script/opgquery.js"></script>
+    <script src="script/opgPlugins.js"></script>
+    <script src="script/opgWidgets.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // stops ajax load thereby refreshing page
+            $("form").attr('data-ajax', 'false');
+            var lastChecked = $("#_Q0_C0").is(':checked');
+            var _radioName = "_QPageTest_Qpage1_C"
+            $("input[name=" + _radioName + "]").change(function(){
+              if (this.id == "_Q0_C0") lastChecked = true;
+              else lastChecked = false;
+              if (lastChecked) $("#temp").show();
+              else $("#temp").hide();
+            });
+            if (lastChecked) $("#temp").show();
+            else $("#temp").hide();
+        });
+    </script>
+  </head>
+  <!-- Include a mrPage tag with IncludeElementIDs to support clickable text -->
+  <!-- Question, Banner, Error and NavBar templates are not specified so the defaults are used. -->
+  <body>
+    <mrPage IncludeElementIDs="true" />
+    <div class="header"></div>
+ <div id="mainPage" data-role="page">
+        <div data-role="content">
+        <br />
+              <div>
+                <div style="width:100%; border-width: 1px; border-color: #bbb; border-style: solid; background-color: #FFFFFF">
+                  <!-- Include a progress bar. -->
+                  <!-- The default progress bar does not include a border so create a border using the surrounding divs. -->
+                  <mrProgressBar Color="#f79137" ShowCounts="AsPercentage" />
+                </div>
+              </div>
+            <br/>
+            <div>
+                <!-- All unnamed page banners go here. -->
+                <mrBannerText>mrBannerText</mrBannerText>
+                <!-- All questions here. -->
+                <mrData Index="1" QuestionElement="Controls"/>
+                <div id="temp" style="visible:none">
+                    <mrData Index="2" QuestionElement="Controls"/>
+                </div>
+            </div>
+            <br/>
+            <div class="footer">
+                    <!-- Specifying navigation button text in the template. -->
+              <mrNavButton Name="Prev">Back</mrNavButton>
+              <mrNavButton Name="Next">Next</mrNavButton>
+              <mrNavButton Name="Goto">GoTo</mrNavButton>
+                      <mrNavButton Name="First">First</mrNavButton>
+                      <mrNavButton Name="Last">Last</mrNavButton>
+            </div>
+        </div>
+    </div>
+  </body>
+</html>

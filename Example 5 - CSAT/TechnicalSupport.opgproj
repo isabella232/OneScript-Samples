@@ -1,0 +1,57 @@
+<Project>
+  <Summary Name="TechnicalSupport" Version="1.0.1026">
+    <UseExternalBrowser>True</UseExternalBrowser>
+    <DetailedDebug>False</DetailedDebug>
+    <BreakPoints>
+    </BreakPoints>
+    <UserFields>
+    </UserFields>
+  </Summary>
+  <File Type="Project" Name="TechnicalSupport">
+    <File Type="Script" Name="TechnicalSupport.one">
+    </File>
+   
+    <File Type="Folder" Name="css">
+      <File Type="Css" Name="developer_survey.css">
+      </File>
+      <File Type="Css" Name="jquery.mobile-1.4.2.min.css">
+      </File>
+      <File Type="Css" Name="jquery-ui.min.css">
+      </File>
+    </File>
+    <File Type="Folder" Name="fonts">
+      <File Type="Unknown" Name="kievitot-light.otf">
+      </File>
+      <File Type="Unknown" Name="kievitot-medium.otf">
+      </File>
+      <File Type="Unknown" Name="kievitot-regular.otf">
+      </File>
+      <File Type="Unknown" Name="kievitweb.woff">
+      </File>
+      <File Type="Unknown" Name="kievitweb-light.woff">
+      </File>
+      <File Type="Unknown" Name="kievitweb-medi.woff">
+      </File>
+    </File>
+    <File Type="Folder" Name="images">
+      <File Type="Unknown" Name="footer-logo.png">
+      </File>
+      <File Type="Unknown" Name="header-logo_with version no example.png">
+      </File>
+      <File Type="Unknown" Name="header-logo.png">
+      </File>
+    </File>
+    <File Type="Folder" Name="js">
+      <File Type="JavaScript" Name="jquery.mobile-1.4.2.min.js">
+      </File>
+      <File Type="JavaScript" Name="jquery-1.10.2.js">
+      </File>
+      <File Type="JavaScript" Name="jquery-ui.min.js">
+      </File>
+    </File>
+    <File Type="Template" Name="developer_survey.html">
+    </File>
+    <File Type="XmlStyleSheet" Name="Question.xsl">
+    </File>
+  </File>
+</Project>

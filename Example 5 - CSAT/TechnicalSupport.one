@@ -1,0 +1,157 @@
+﻿Fields() {
+ Q1 "Email"
+  Text[1..];
+  
+  Q2 "Thank you for taking the time to give us your feedback! This 4 question survey will only take a couple of minutes and will help us to provide the best possible service to you."
+  info;
+  
+  Q3 "Q1. Overall how would you rate your satisfaction with the service you have received from OnePoint Global?" enum[1..1]
+    {
+    c1 "1 (Very dissatisfied)",
+    c2 "2",
+    c3 "3",
+    c4 "4",
+    c5 "5",
+    c6 "6",
+    c7 "7",
+    c8 "8",
+    c9 "9",
+    c10 "10 (Very satisfied)",
+    };
+
+
+r1 "template 1" define {
+    c1 "1 Very Poor",
+    c2 "2",
+    c3 "3",
+    c4 "4",
+    c5 "5 Very Good",
+    c6 "N/A"
+    };
+
+
+Q4_1 "Q2. How would you rate OnePoint Global on the following?
+
+Supporting your Mobile Research Sales" enum[1..1]  { use r1 };
+
+Q4_2 "Providing Relevant Marketing Information" enum[1..1] { use r1 };
+
+Q4_3 "Technical Support" enum[1..1] { use r1 };
+
+Q4_4 "Client/Project Support" enum[1..1] { use r1 };
+
+Q4_5 "Data Collection Capabilities" enum[1..1] { use r1 };
+
+Q4_6 "Accounting / Invoicing" enum[1..1] { use r1 };
+
+Q4_struct page (
+    Q4_1, Q4_2, Q4_3, Q4_4, Q4_5, Q4_6);
+
+
+    
+   Q5 "Q3. Thinking about your overall experience, how likely are you to recommend OnePoint Global to a friend or colleague?" 
+    enum[1..1]
+    {
+    c1 "0 (Not likely at all)",
+    c2 "1",
+    c3 "2",
+    c4 "3",
+    c5 "4",
+    c6 "5",
+    c7 "6",
+    c8 "7",
+    c9 "8",
+    c10 "9",
+    c11 "10 (Extremely likely)",
+    };
+           
+    Q6 "Q4. {#qHelp}/10 that's great! What is it that OnePoint Global does really well?"
+    text[1..];
+    
+    Q7 "Q4. {#qHelp}/10 that's not bad, but what changes could OnePoint Global do to improve your experience?"
+    text[1..];
+    
+    Q8 "Q4. Oh dear {#qHelp}/10 that's not good! What do we need to do as a matter of urgency to improve our service in future?"
+    text[1..];
+    
+    TY "That's it! Thanks again for taking the time to give us your feedback! </br>We'll use your responses and comments as part of our continuous service improvement."
+    Info;
+    
+    qHelp ""
+    Long[1..];
+    
+    
+	
+	
+}
+Main() {
+    Interview.LayoutTemplate = "developer_survey.html"
+    
+   
+    Dim progress
+    progress=0
+    
+    IOM.Navigations.Add(NavigationTypes.nvStop).Label.Style.Hidden = true
+    
+    Q1.response.value = interview.info.User1
+
+    progress=progress+1
+    IOM.Info.EstimatedProgress = progress
+    Q2.ask()
+    
+    progress=progress+1
+    IOM.Info.EstimatedProgress = progress
+    Q3.ask()
+    
+    progress=progress+2
+    IOM.Info.EstimatedProgress = progress
+    Q4_struct.ask()
+    
+    progress=progress+1
+    IOM.Info.EstimatedProgress = progress
+    Q5.ask()
+    
+    
+    If Q5.Containsany({c1}) then qHelp.response.Value = 0
+    If Q5.Containsany({c2}) then qHelp.response.Value = 1
+    If Q5.Containsany({c3}) then qHelp.response.Value = 2
+    If Q5.Containsany({c4}) then qHelp.response.Value = 3
+    If Q5.Containsany({c5}) then qHelp.response.Value = 4
+    If Q5.Containsany({c6}) then qHelp.response.Value = 5
+    If Q5.Containsany({c7}) then qHelp.response.Value = 6
+    If Q5.Containsany({c8}) then qHelp.response.Value = 7
+    If Q5.Containsany({c9}) then qHelp.response.Value = 8
+    If Q5.Containsany({c10}) then qHelp.response.Value = 9
+    If Q5.Containsany({c11}) then qHelp.response.Value = 10
+    
+    If Q5.Containsany({c9,c10}) then GoTo Q6
+    If Q5.Containsany({c8})then GoTo Q7
+    If Q5.Containsany({c7}) then GoTo Q7
+    If Q5.Containsany({c1,c2,c3,c4,c5,c6}) then GoTo Q8
+    
+    
+    
+    Q6:
+    progress=progress+3
+    IOM.Info.EstimatedProgress = progress
+    Q6.ask()
+    GoTo TY
+    
+    Q7:
+    progress=progress+3
+    IOM.Info.EstimatedProgress = progress
+    Q7.ask()
+    GoTo TY
+    
+    Q8:
+    IOM.Navigations[NavigationTypes.nvNext].Label = "Next"
+    progress=progress+3
+    IOM.Info.EstimatedProgress = progress
+    Q8.ask()
+    
+    TY:
+    IOM.Navigations[NavigationTypes.nvNext].Label = "Finish"
+    progress=progress+1
+    IOM.Info.EstimatedProgress = progress
+    TY.ask()
+}

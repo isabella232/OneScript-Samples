@@ -1,0 +1,24 @@
+﻿Fields(en-gb, Analysis, Label) {
+  intro "Welcome to OneScript
+  This example shows the properties of the browser this survey is running in." info;
+  
+    browser - loop [1..130] fields
+    (
+        name - string;
+        value - string;
+    );
+  
+}
+Main() {
+    Interview.LayoutTemplate = "Browser Properties.htm"
+    intro.show()
+    
+    var i = 0
+    while i < interview.info.browsercapabilities.count && i < 130
+    {
+        browser[i].name = interview.info.browsercapabilities[i].Name
+        browser[i].value = interview.info.browsercapabilities[i].value
+        i = i + 1
+    }
+    browser.show()
+}

@@ -1,0 +1,45 @@
+﻿Fields() {
+	product "Please select the product you require help on" enum [1..1]
+		{
+			studio "OnePoint Global Studio",
+			script "OnePoint Global Script (OneScript)"
+		};
+		
+	Studio_version "The latest version of OnePoint Global Studio is 1.0.1026.13
+	If you are experiencing some issue then maybe you have not got the latest version installed.
+	Click the on the Help Menu and the abbout Option to find out what version of the Studio you have installed."
+	info;
+	
+	studio_common "Please look at the list below  of most common questions" enum [1..1]
+		{
+			_1 "Why can't I load my project?",
+			_2 "How do I get a Studio license?",
+			NA "None of the above"
+		};
+		
+	studio_support "Please write your commennts below" text;
+	
+	onescript_version "The latest version of OnePoint Global Script Compiler is 1.0.1025.14
+	When you use the compiler from OnePoint Global Studio you will see the version being used."
+	info;
+	
+	thankyou "Thanks for your question. We will do our best to respond to you as soon as possible."
+	info;
+	
+	
+}
+Main() {
+	product.ask()
+	switch product {
+		case {studio}
+			studio_version.show()
+			studio_common.ask()
+			if studio_common = {NA} {
+				studio_support.ask()
+			}
+		case {script}
+			onescript_version.show()
+	}
+	
+	thankyou.ask()
+}

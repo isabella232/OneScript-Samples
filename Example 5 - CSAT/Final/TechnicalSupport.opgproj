@@ -1,0 +1,15 @@
+<Project>
+  <Summary Name="TechnicalSupport" Version="1.0.1026">
+    <UseExternalBrowser>True</UseExternalBrowser>
+    <DetailedDebug>False</DetailedDebug>
+    <BreakPoints>
+    </BreakPoints>
+    <UserFields>,,,,,,,,,</UserFields>
+  </Summary>
+  <File Type="Project" Name="TechnicalSupport">
+    <File Type="Script" Name="TechnicalSupport.one">
+    </File>
+    <File Type="Script" Name="Testing5_Boolean.ivs">
+    </File>
+  </File>
+</Project>

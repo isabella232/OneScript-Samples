@@ -1,0 +1,16 @@
+<Project>
+  <Summary Name="Brand Tracker" Version="1.0.1026">
+    <UseExternalBrowser>False</UseExternalBrowser>
+    <DetailedDebug>False</DetailedDebug>
+    <BreakPoints>
+    </BreakPoints>
+    <UserFields>
+    </UserFields>
+  </Summary>
+  <File Type="Project" Name="Brand Tracker">
+    <File Type="Script" Name="Brand Tracker.one">
+    </File>
+    <File Type="Template" Name="Brand Tracker.htm">
+    </File>
+  </File>
+</Project>
